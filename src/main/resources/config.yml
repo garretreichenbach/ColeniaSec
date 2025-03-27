@@ -1,0 +1,9 @@
+debug-mode: false                                             # Enable or disable debug mode.
+staffmode-enabled: true                                       # Enable or disable the staff mode feature.
+staffmode-persist-on-relog: true                              # Persist staff mode on relogging.
+staffmode-no-action-timeout: 900000                           # Time in milliseconds before staff mode is disabled due to inactivity. Set to -1 to disable.
+staffmode-exempted-roles: ["Owner"]                           # List of roles that are exempted from having to use staff mode.
+staffmode-exempted-permissions: ["coleniaSec.staffmode"]      # List of permissions that are exempted from having to use staff mode.
+staffmode-auto-reset-gamemode: true                           # Whether to automatically reset the player's gamemode to survival when staff mode is disabled.
+use-discord-webhook: true                                     # Enable or disable Discord Webhook integration.
+discord-webhook-url: "[Discord Webhook URL]"                  # Discord Webhook URL.

@@ -1,0 +1,11 @@
+name: ColeniaSec
+version: "1.0.0"
+main: thederpgamer.coleniaSec.ColeniaSec
+api-version: "1.20"
+prefix: "ColeniaSec"
+authors: [ "TheDerpGamer" ]
+commands:
+    staffmode:
+        description: Toggles Staff Mode, which is required to use admin commands
+        usage: /<command> <reason>
+        permission: coleniasec.staffmode.toggle

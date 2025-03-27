@@ -1,0 +1,4 @@
+staff-mode-required: "&cYou must be in staff mode (/staffmode <on|off> <reason>) to use this command."
+staff-mode-enabled: "&aYou have entered staff mode."
+staff-mode-disabled: "&cYou have exited staff mode."
+staff-mode-disabled-timeout: "&cYou have been removed from staff mode due to inactivity."
