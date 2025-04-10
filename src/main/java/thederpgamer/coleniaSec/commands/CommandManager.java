@@ -16,7 +16,6 @@ public class CommandManager {
 
 	public static void initialize(ColeniaSec plugin) {
 		CommandManager.plugin = plugin;
-		Objects.requireNonNull(plugin.getCommand("staffmode")).setExecutor(new StaffModeCommand());
 	}
 
 	public static Command getCommand(String commandName) {
