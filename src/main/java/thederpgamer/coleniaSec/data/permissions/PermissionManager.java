@@ -9,7 +9,7 @@ import thederpgamer.coleniaSec.ColeniaSec;
 /**
  * Manages permissions.
  *
- * @author Garret Reichenbach
+ * @author TheDerpGamer
  */
 public class PermissionManager {
 

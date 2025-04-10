@@ -1,6 +1,10 @@
 package thederpgamer.coleniaSec;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import thederpgamer.coleniaSec.commands.CommandManager;
+import thederpgamer.coleniaSec.data.permissions.PermissionManager;
+
+import java.util.logging.Level;
 
 public final class ColeniaSec extends JavaPlugin {
 	
@@ -9,23 +13,19 @@ public final class ColeniaSec extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		plugin = this;
-		logInfo("Enabling ColeniaSec...");
 		APIManager.initialize(this);
 		ConfigManager.initialize(this);
 		EventManager.initialize(this);
 		PermissionManager.initialize(this);
 		CommandManager.initialize(this);
-		logInfo("ColeniaSec has been enabled.");
 	}
 
 	@Override
 	public void onDisable() {
-		logInfo("Disabling ColeniaSec...");
-		logInfo("ColeniaSec has been disabled.");
 	}
 	
 	public void logDebug(String message) {
-		if(ConfigManager.config.getBoolean("debug-mode")) getLogger().log(Level.DEBUG, message);
+		if(ConfigManager.config.getBoolean("debug-mode")) getLogger().log(Level.FINE, message);
 	}
 	
 	public void logInfo(String message) {

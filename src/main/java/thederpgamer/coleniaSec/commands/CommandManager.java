@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * [Description]
  *
- * @author Garret Reichenbach
+ * @author TheDerpGamer
  */
 public class CommandManager {
 

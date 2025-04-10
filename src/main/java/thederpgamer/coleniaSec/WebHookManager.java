@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * [Description]
  *
- * @author Garret Reichenbach
+ * @author TheDerpGamer
  */
 public class WebHookManager {
 

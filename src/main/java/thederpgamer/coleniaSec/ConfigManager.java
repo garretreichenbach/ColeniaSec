@@ -8,7 +8,7 @@ import java.io.File;
 /**
  * [Description]
  *
- * @author Garret Reichenbach
+ * @author TheDerpGamer
  */
 public class ConfigManager {
 
@@ -35,26 +35,17 @@ public class ConfigManager {
 			saveDefaultMessages();
 			messagesConfig.load(messagesFile);
 		} catch(Exception exception) {
-			exception.printStackTrace();
+			plugin.logError("An error occurred while initializing the configuration files.");
 		}
 	}
 
 	private static void saveDefaultConfig() {
 		config.options().copyDefaults(true);
-		config.addDefault("staffmode-enabled", true);
-		config.addDefault("staffmode-persist-on-relog", true);
-		config.addDefault("staffmode-no-action-timeout", 900000);
-		config.addDefault("staffmode-exempted-roles", new String[] {"Owner"});
-		config.addDefault("staffmode-exempted-permissions", new String[] {"coleniaSec.staffmode"});
-		config.addDefault("staffmode-auto-reset-gamemode", true);
 		config.addDefault("use-discord-webhook", true);
 		config.addDefault("discord-webhook-url", "[Discord Webhook URL]");
 	}
 
 	private static void saveDefaultMessages() {
 		messagesConfig.options().copyDefaults(true);
-		messagesConfig.addDefault("staff-mode-required", "&cYou must be in staff mode to use this command.");
-		messagesConfig.addDefault("staff-mode-enabled", "&aStaff mode enabled.");
-		messagesConfig.addDefault("staff-mode-disabled", "&cStaff mode disabled.");
 	}
 }

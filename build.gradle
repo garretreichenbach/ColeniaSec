@@ -1,13 +1,9 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 plugins {
 	id 'java'
-//	id 'de.undercouch.download' version '5.1.1'
+	id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 apply plugin: 'java'
-//apply plugin: 'eclipse'
-//apply plugin: 'de.undercouch.download'
 
 group = project.property('group')
 version = project.property('version')
@@ -37,30 +33,10 @@ dependencies {
 }
 
 processResources {
-	filter ReplaceTokens, tokens: [
-			'mainClass'    : project.property('mainClass'),
-			'plugin_name'  : project.property('plugin_name'),
-			'version'      : project.property('version'),
-			'mc_version': project.property('mcVersion'),
-			'javaVersion'  : project.property('javaVersion')
-	]
 	def props = [version: version]
 	inputs.properties props
 	filteringCharset 'UTF-8'
 	filesMatching('plugin.yml') { expand props }
-}
-
-jar {
-	manifest {
-		attributes(
-				'Name': project.property('plugin_name'),
-				'Version': project.property('version'),
-				'Minecraft_Version': project.property('mcVersion'),
-				'Java_Version': project.property('javaVersion'),
-				'Authors': project.property('authors'),
-				'Description': project.property('description'),
-		)
-	}
 }
 
 def targetJavaVersion = 21
@@ -73,63 +49,8 @@ java {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	options.encoding = 'UTF-8'
-
-	if(targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) options.release.set(targetJavaVersion)
-}
-
-/*tasks.register('genIntellijRuns', Copy) {
-	dependsOn['downloadServer']
-	from 'config/idea'
-	into '.idea/runConfigurations'
-}
-
-tasks.register('genEclipseRuns', Copy) {
-	dependsOn['downloadServer', 'eclipse']
-	from 'config/eclipse'
-	into 'launch'
-	rename { filename ->
-		filename.replace 'xml', 'launch'
+tasks {
+	runServer {
+		minecraftVersion("1.20.6")
 	}
 }
-
-tasks.register('downloadServer', Download) {
-	src 'https://cdn.getbukkit.org/spigot/spigot-' + project.property('spigotVersion') + '.jar'
-	dest 'config/server'
-	overwrite false
-}
-
-tasks.register('setupServer', Copy) {
-	dependsOn['downloadServer']
-	from 'config/server'
-	into 'run'
-	rename { filename ->
-		filename.replace 'spigot-' + project.property('spigotVersion'), 'server'
-	}
-	eachFile {
-		if (it.relativePath.getFile(destinationDir).exists()) {
-			it.exclude()
-		}
-	}
-}
-
-tasks.register('setupPlugin', Copy) {
-	dependsOn['build']
-	from 'build/libs'
-	into 'run/plugins'
-}
-
-tasks.register('startServer', JavaExec) {
-	dependsOn['setupServer', 'setupPlugin']
-	classpath 'run/server.jar'
-	if (project.property('minRam').toInteger() > 0) {
-		jvmArgs '-Xms' + project.property('minRam')
-	}
-	if (project.property('maxRam').toInteger() > 0) {
-		jvmArgs '-Xmx' + project.property('maxRam')
-	}
-	workingDir = 'run/'
-	standardInput = System.in
-}
- */
