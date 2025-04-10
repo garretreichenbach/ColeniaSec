@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ColeniaSec.iml" filepath="$PROJECT_DIR$/.idea/modules/ColeniaSec.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ColeniaSec.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ColeniaSec.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ColeniaSec.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ColeniaSec.test.iml" />
     </modules>
   </component>
 </project>
