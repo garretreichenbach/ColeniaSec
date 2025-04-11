@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ColeniaSec.iml" filepath="$PROJECT_DIR$/.idea/modules/ColeniaSec.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ColeniaSec.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ColeniaSec.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ColeniaSec.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ColeniaSec.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thederpgamer.coleniasec.ColeniaSec.main.iml" filepath="$PROJECT_DIR$/.idea/modules/thederpgamer.coleniasec.ColeniaSec.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thederpgamer.coleniasec.ColeniaSec.test.iml" filepath="$PROJECT_DIR$/.idea/modules/thederpgamer.coleniasec.ColeniaSec.test.iml" />
     </modules>
   </component>
 </project>

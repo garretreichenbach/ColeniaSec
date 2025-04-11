@@ -41,8 +41,9 @@ public class ConfigManager {
 
 	private static void saveDefaultConfig() {
 		config.options().copyDefaults(true);
-		config.addDefault("use-discord-webhook", true);
+		config.addDefault("use-discord-webhook", false);
 		config.addDefault("discord-webhook-url", "[Discord Webhook URL]");
+		config.addDefault("building-world-name", "Creative_World");
 	}
 
 	private static void saveDefaultMessages() {

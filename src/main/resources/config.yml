@@ -1,3 +1,4 @@
 debug-mode: false                                             # Enable or disable debug mode.
-use-discord-webhook: true                                     # Enable or disable Discord Webhook integration.
+use-discord-webhook: false                                    # Enable or disable Discord Webhook integration.
 discord-webhook-url: "[Discord Webhook URL]"                  # Discord Webhook URL.
+building-world-name: "Creative_World"                         # Name of the creative building world.
