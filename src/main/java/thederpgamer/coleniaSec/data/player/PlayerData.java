@@ -6,6 +6,7 @@ import org.bukkit.Registry;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
+import thederpgamer.coleniaSec.data.DataManager;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -13,11 +14,22 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Class representing stored player data.
+ */
 public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<PlayerData>, Comparable<PlayerData> {
 
+	private static final byte VERSION = 0;
 	protected String uuid;
 	protected String name;
 	protected PlayerWorldData worldData;
+
+	public static PlayerData getDataFromPlayer(Player player) {
+		if(!DataManager.dataExists(DataManager.DataTypes.PLAYER, player.getUniqueId().toString())) {
+			DataManager.createNewData(DataManager.DataTypes.PLAYER, player.getUniqueId().toString(), player.getName());
+		}
+		return new PlayerData(DataManager.getData(DataManager.DataTypes.PLAYER, player.getUniqueId().toString()));
+	}
 
 	public PlayerData(Player player) {
 		uuid = player.getUniqueId().toString();
@@ -45,9 +57,10 @@ public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<
 	public PlayerData deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 		if(jsonElement.isJsonObject()) {
 			JsonObject jsonObject = jsonElement.getAsJsonObject();
+			byte version = jsonObject.get("version").getAsByte();
 			uuid = jsonObject.get("uuid").getAsString();
 			name = jsonObject.get("name").getAsString();
-			worldData = new PlayerWorldData(jsonObject.get("worldData"));
+			worldData = new PlayerWorldData(jsonObject.get("world_data"));
 		} else throw new JsonParseException("Invalid JSON format for PlayerData");
 		return this;
 	}
@@ -55,9 +68,10 @@ public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<
 	@Override
 	public JsonElement serialize(PlayerData playerData, Type type, JsonSerializationContext jsonSerializationContext) {
 		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("version", VERSION);
 		jsonObject.addProperty("uuid", uuid);
 		jsonObject.addProperty("name", name);
-		jsonObject.add("worldData", jsonSerializationContext.serialize(worldData));
+		jsonObject.add("world_data", jsonSerializationContext.serialize(worldData));
 		return jsonObject;
 	}
 
@@ -65,9 +79,14 @@ public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<
 	public int compareTo(@NotNull PlayerData o) {
 		return uuid.compareTo(o.uuid);
 	}
+	
+	public void save() {
+		DataManager.saveData(DataManager.DataTypes.PLAYER, uuid, serialize(this, PlayerData.class, null));
+	}
 
 	public static class PlayerWorldData implements JsonDeserializer<PlayerWorldData>, JsonSerializer<PlayerWorldData>, Comparable<PlayerWorldData> {
 
+		private static final byte VERSION = 0;
 		private String uuid;
 		private String lastWorld;
 		private ArrayList<PotionEffect> potionEffects = new ArrayList<>();
@@ -86,6 +105,7 @@ public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<
 		public PlayerWorldData deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 			if(jsonElement.isJsonObject()) {
 				JsonObject jsonObject = jsonElement.getAsJsonObject();
+				byte version = jsonObject.get("version").getAsByte();
 				uuid = jsonObject.get("uuid").getAsString();
 				lastWorld = jsonObject.get("world_name").getAsString();
 				JsonArray potionEffectsArray = jsonObject.getAsJsonArray("potion_effects");
@@ -104,6 +124,7 @@ public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<
 		@Override
 		public JsonElement serialize(PlayerWorldData playerData, Type type, JsonSerializationContext jsonSerializationContext) {
 			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("version", VERSION);
 			jsonObject.addProperty("uuid", uuid);
 			jsonObject.addProperty("last_world", lastWorld);
 			JsonArray potionEffectsArray = new JsonArray();
@@ -133,6 +154,10 @@ public class PlayerData implements JsonDeserializer<PlayerData>, JsonSerializer<
 
 		public String getLastWorld() {
 			return lastWorld;
+		}
+		
+		public void setLastWorld(String lastWorld) {
+			this.lastWorld = lastWorld;
 		}
 
 		public ArrayList<PotionEffect> getPotionEffects() {

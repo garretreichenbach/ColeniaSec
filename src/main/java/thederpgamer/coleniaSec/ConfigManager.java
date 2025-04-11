@@ -35,7 +35,7 @@ public class ConfigManager {
 			saveDefaultMessages();
 			messagesConfig.load(messagesFile);
 		} catch(Exception exception) {
-			plugin.logError("An error occurred while initializing the configuration files.");
+			plugin.logError("An error occurred while initializing the configuration files.", exception);
 		}
 	}
 

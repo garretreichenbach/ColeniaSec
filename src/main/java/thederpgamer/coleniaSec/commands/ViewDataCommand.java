@@ -6,6 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import thederpgamer.coleniaSec.data.DataManager;
 
+import java.util.Objects;
+
 public class ViewDataCommand implements CommandExecutor {
 
 	@Override
@@ -16,9 +18,9 @@ public class ViewDataCommand implements CommandExecutor {
 		}
 		try {
 			if(args[2].equalsIgnoreCase("all") || args[2].equalsIgnoreCase("*")) {
-				sender.sendMessage("Player Data: " + DataManager.getAllData(args[2]));
+				sender.sendMessage(DataManager.getAllData(DataManager.DataTypes.valueOf(args[2])).getAsString());
 			} else {
-				sender.sendMessage("Player Data: " + DataManager.getData(args[2], args[3]));
+				sender.sendMessage(Objects.requireNonNull(DataManager.getData(DataManager.DataTypes.valueOf(args[2]), args[3])).getAsString());
 			}
 		} catch(Exception exception) {
 			exception.printStackTrace();

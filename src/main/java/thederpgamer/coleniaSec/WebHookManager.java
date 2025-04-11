@@ -1,6 +1,7 @@
 package thederpgamer.coleniaSec;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * [Description]
@@ -11,8 +12,8 @@ public class WebHookManager {
 
 	public static void sendStaffModeWebHookEnable(String playerName, String reason) {
 		if(!ConfigManager.config.getBoolean("use-discord-webhook")) return;
-		if(ConfigManager.config.getString("discord-webhook-url").equals("[Discord Webhook URL]")) {
-			ColeniaSec.plugin.logError("Invalid Discord Webhook URL. Please set a valid URL in the config.yml file.");
+		if(Objects.equals(ConfigManager.config.getString("discord-webhook-url"), "[Discord Webhook URL]")) {
+			ColeniaSec.plugin.logWarning("Invalid Discord Webhook URL. Please set a valid URL in the config.yml file.");
 			return;
 		}
 		DiscordWebhook webhook = new DiscordWebhook(getWebHookUrl());
@@ -26,14 +27,14 @@ public class WebHookManager {
 		try {
 			webhook.execute();
 		} catch(Exception exception) {
-			exception.printStackTrace();
+			ColeniaSec.plugin.logError("Failed to send Discord Webhook message: " + exception.getMessage(), exception);
 		}
 	}
 
 	public static void sendStaffModeWebHookDisable(String playerName) {
 		if(!ConfigManager.config.getBoolean("use-discord-webhook")) return;
-		if(ConfigManager.config.getString("discord-webhook-url").equals("[Discord Webhook URL]")) {
-			ColeniaSec.plugin.logError("Invalid Discord Webhook URL. Please set a valid URL in the config.yml file.");
+		if(Objects.equals(ConfigManager.config.getString("discord-webhook-url"), "[Discord Webhook URL]")) {
+			ColeniaSec.plugin.logWarning("Invalid Discord Webhook URL. Please set a valid URL in the config.yml file.");
 			return;
 		}
 		DiscordWebhook webhook = new DiscordWebhook(getWebHookUrl());
@@ -46,14 +47,14 @@ public class WebHookManager {
 		try {
 			webhook.execute();
 		} catch(Exception exception) {
-			exception.printStackTrace();
+			ColeniaSec.plugin.logError("Failed to send Discord Webhook message: " + exception.getMessage(), exception);
 		}
 	}
 
 	public static void sendStaffModeCommandUsageWebHook(String playerName, String command, String[] args) {
 		if(!ConfigManager.config.getBoolean("use-discord-webhook")) return;
-		if(ConfigManager.config.getString("discord-webhook-url").equals("[Discord Webhook URL]")) {
-			ColeniaSec.plugin.logError("Invalid Discord Webhook URL. Please set a valid URL in the config.yml file.");
+		if(Objects.equals(ConfigManager.config.getString("discord-webhook-url"), "[Discord Webhook URL]")) {
+			ColeniaSec.plugin.logWarning("Invalid Discord Webhook URL. Please set a valid URL in the config.yml file.");
 			return;
 		}
 		DiscordWebhook webhook = new DiscordWebhook(getWebHookUrl());
@@ -68,7 +69,7 @@ public class WebHookManager {
 		try {
 			webhook.execute();
 		} catch(Exception exception) {
-			exception.printStackTrace();
+			ColeniaSec.plugin.logError("Failed to send Discord Webhook message: " + exception.getMessage(), exception);
 		}
 	}
 
